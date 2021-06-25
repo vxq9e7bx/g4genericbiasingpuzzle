@@ -61,14 +61,14 @@ G4VPhysicalVolume* myDetectorConstruction::Construct() {
 
     G4Box *Box = new G4Box("Scatter", 5.*mm, 5.*mm, 5.*mm);
     G4LogicalVolume *l_Box = new G4LogicalVolume(Box, scatter, "Scatter");
-//    new G4PVPlacement(nullptr,
-//                      G4ThreeVector(0,0,0),
-//                      l_Box,
-//                      "Box",
-//                      fWorldVolume,
-//                      false,
-//                      0);
-//    l_Box->SetVisAttributes(G4Color(1., 1., 0., 0.25));
+    new G4PVPlacement(nullptr,
+                      G4ThreeVector(0,0,0),
+                      l_Box,
+                      "Box",
+                      fWorldVolume,
+                      false,
+                      0);
+    l_Box->SetVisAttributes(G4Color(1., 1., 0., 0.25));
 
     //always return the root volume
     return pWorld;

@@ -82,7 +82,7 @@ DistanceToApplyOperation( const G4Track* track,
   G4cerr
           << track->GetTrackID() << " / " << track->GetCurrentStepNumber()
           << " DistanceToApply: "
-          <<previousVolume
+          << previousVolume
           << " -> "
           << fBiasingSharedData->GetParallelGeometriesLimiterProcess()->GetCurrentVolume( fParallelWorldIndex )->GetName()
           << " Current Volume: "
@@ -122,14 +122,14 @@ myOptnSplitAndKillByImportance::GenerateBiasingFinalState( const G4Track* track,
 //              << " IS LIMITING" << G4endl;
 
   // -- if not limiting, we leave the track unchanged:
-  if ( !isLimiting )
-    {
-      G4cerr
-              << track->GetTrackID()
-              << " should return." << G4endl;
-      fDummyParticleChange.Initialize( *track );
+//  if ( !isLimiting )
+//    {
+//      G4cerr
+//              << track->GetTrackID()
+//              << " should return." << G4endl;
+//      fDummyParticleChange.Initialize( *track );
 //      return &fDummyParticleChange;
-    }
+//    }
 
   // -- We collect the geometry state at the end point step:
   // -- Note this is the same call than in the DistanceToApplyOperation(...) for the
@@ -190,7 +190,7 @@ myOptnSplitAndKillByImportance::GenerateBiasingFinalState( const G4Track* track,
       G4double splittingFactor = G4double(postImportance) / G4double(preImportance);
       G4cerr
               << track->GetTrackID()
-              << " should split: " << splittingFactor << G4endl;
+              << " splitting: " << splittingFactor << G4endl;
       // Define the tracks weight:
       G4double weightOfTrack = initialWeight/splittingFactor;
 
@@ -213,7 +213,7 @@ myOptnSplitAndKillByImportance::GenerateBiasingFinalState( const G4Track* track,
       G4double survivingProbability = G4double(postImportance) / G4double(preImportance);
       G4cerr
               << track->GetTrackID()
-              << " killing: " << survivingProbability << G4endl;
+              << " Russian roulette: " << survivingProbability << G4endl;
       // Shoot a random number (in ]0,1[ segment):
       G4double random = G4UniformRand();
       if ( random > survivingProbability )
@@ -222,7 +222,7 @@ myOptnSplitAndKillByImportance::GenerateBiasingFinalState( const G4Track* track,
           fParticleChange.ProposeTrackStatus(fStopAndKill);
           G4cerr
                   << track->GetTrackID()
-                  << "killed" << G4endl;
+                  << " killed" << G4endl;
         }
       else
         {
